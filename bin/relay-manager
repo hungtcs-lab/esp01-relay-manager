@@ -1,0 +1,13 @@
+#!/usr/bin/env node
+const request = require('request-promise-native');
+const server = require('../server');
+const logger = require('../server/logger');
+const devicesChecker = require('../server/devices-checker');
+
+const port = process.env['PORT'] || 3000;
+
+server.listen(port, () => {
+  logger.info(`server startup at port ${ port }`);
+  logger.info(`start schedule job to check active devices`);
+  devicesChecker.startCheck();
+});
